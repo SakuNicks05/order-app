@@ -11,7 +11,6 @@ def display_orders(request):
     return render(request, "dashboard.html")
 
 def enter_food(request):
-    pass
     return render(request, "enter-order.html")
 
 def sign_up(request):

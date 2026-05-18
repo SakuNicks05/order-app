@@ -43,6 +43,10 @@ def log_in(request):
             password=password
         )
 
+        if user.is_staff:
+            login(request, user)
+            return redirect("dashboard")
+
         if user is not None:
             login(request, user)
             return redirect("enterfood")
@@ -51,3 +55,7 @@ def log_in(request):
                 "error" : "Wrong password or username"
             })
     return render(request, "login.html")
+
+def log_out(request):
+    logout(request)
+    return redirect("login")

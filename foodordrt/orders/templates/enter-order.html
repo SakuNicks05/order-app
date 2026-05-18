@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Order</title>
+</head>
+<body>
+    <p>Hi {{ request.user.username }}!</p>
+    <p>Enter order below:</p>
+
+    <form method="POST">
+        <input type="text" placeholder="enter food" name="food"><br>
+        <input type="number" placeholder="enter quantity" name="food_quantity">
+        <br>
+        <br>
+        <input type="text" placeholder="enter drink" name="drink"><br>
+        <input type="number" placeholder="enter quantity" name="drink_quantity">
+        <br>
+
+        <button id="add-btn">Add</button>
+
+        <ul>
+            <li></li>
+        </ul>
+
+        <br>
+        <button type="submit" id="submit-order">submit Order</button>
+    </form>
+
+    
+    <script src="../static/enterorder.js"></script>
+</body>
+</html>

@@ -2,6 +2,7 @@ let foods = JSON.parse(localStorage.getItem("foods")) || [];
 const mainList = document.getElementById("unordered-list");
 const addBtn = document.getElementById("add-btn");
 renderList();
+
 addBtn.addEventListener("click", () => {
     console.log('it works here');
     let food = document.getElementById("food");
@@ -43,10 +44,13 @@ function getCookie(name){
     let cookieValue = null;
 
     if(document.cookie && document.cookie !== ''){
-        const cookie = document.cookie.split(';');
-        if(cookie.substring(0, name.length + 1) === (name + '=')){
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-            break;
+        const cookies = document.cookie.split(';');
+        for(let i = 0; i < cookies.length; i++){
+            const cookie = cookies[i].trim();
+            if(cookie.substring(0, name.length + 1) === (name + '=')){
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
         }
     }
     return cookieValue;
@@ -55,6 +59,7 @@ function getCookie(name){
 const csrftoken = getCookie("csrftoken");
 
 document.getElementById("submit-order").addEventListener("click", () => {
+    console.log("CLICKED SUBMIT BUTTON~");
     fetch("/submit/", {
         method: "POST",
         headers: {
@@ -65,7 +70,7 @@ document.getElementById("submit-order").addEventListener("click", () => {
     })
     .then(res => res.json())
     .then(data => console.log("server:", data))
-    .catch(err => console.error("error: ", err));
+    .catch(err => console.error("error: ", err))
 })
 
 
@@ -73,4 +78,4 @@ document.getElementById("clear-btn").addEventListener("click", () => {
     foods = [];
     localStorage.removeItem("foods");
     renderList();
-})
+});

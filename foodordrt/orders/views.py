@@ -4,20 +4,27 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from .models import Order
 
 # Create your views here.
-
+@login_required
 def submit_list(request):
-    data = json.loads(request.body)
+    if request.method != "POST":
+        return JsonResponse({"error": "POST required"}, status=400)
+    
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "Invalid JSON"}, status=400)
 
     for item in data:
         Order.objects.create(
             user=request.user,
             food=item["food"],
             drink=item["drink"],
-            numDrink=item["drinkQ"],
-            numFood=item["foodQ"]
+            num_drink=int(item["drinkQ"]), # models name || JSON name
+            num_food=int(item["foodQ"])
         )
     return JsonResponse({"success" : True})
 

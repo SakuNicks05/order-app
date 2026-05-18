@@ -39,10 +39,35 @@ function renderList(){
     });
 }
 
+function getCookie(name){
+    let cookieValue = null;
+
+    if(document.cookie && document.cookie !== ''){
+        const cookie = document.cookie.split(';');
+        if(cookie.substring(0, name.length + 1) === (name + '=')){
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+        }
+    }
+    return cookieValue;
+}
+
+const csrftoken = getCookie("csrftoken");
 
 document.getElementById("submit-order").addEventListener("click", () => {
-    // logic for submitting to main user
+    fetch("/submit/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrftoken
+        },
+        body: JSON.stringify(foods)
+    })
+    .then(res => res.json())
+    .then(data => console.log("server:", data))
+    .catch(err => console.error("error: ", err));
 })
+
 
 document.getElementById("clear-btn").addEventListener("click", () => {
     foods = [];

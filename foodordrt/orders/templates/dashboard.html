@@ -7,6 +7,10 @@
 </head>
 <body>
     <p>All Orders:</p>
+
+    {% for item in orders %}
+        <p>Item: {{ item.food }} ({{ item.numFood }}) - {{ item.drink }} ({{ item.numDrink }})</p>
+    {% endfor %}
     <ul id="dash-list"></ul>
 </body>
 </html>

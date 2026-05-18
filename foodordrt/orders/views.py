@@ -1,14 +1,31 @@
 import requests
+import json
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from .models import Order
 
 # Create your views here.
 
+def submit_list(request):
+    data = json.loads(request.body)
 
+    for item in data:
+        Order.objects.create(
+            user=request.user,
+            food=item["food"],
+            drink=item["drink"],
+            numDrink=item["drinkQ"],
+            numFood=item["foodQ"]
+        )
+    return JsonResponse({"success" : True})
 
 def display_orders(request):
-    return render(request, "dashboard.html")
+    orders = Order.objects.all()
+    return render(request, "dashboard.html", {
+        "orders": orders
+    })
 
 def enter_food(request):
     return render(request, "enter-order.html")

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enter Order</title>
@@ -10,25 +11,23 @@
     <p>Enter order below:</p>
 
     <form method="POST">
-        <input type="text" placeholder="enter food" name="food"><br>
-        <input type="number" placeholder="enter quantity" name="food_quantity">
+        {% csrf_token %}
+        <input id="food" type="text" placeholder="enter food" name="food"><br>
+        <input id="food-quantity" type="number" placeholder="enter quantity" name="food_quantity">
         <br>
         <br>
-        <input type="text" placeholder="enter drink" name="drink"><br>
-        <input type="number" placeholder="enter quantity" name="drink_quantity">
+        <input id="drink" type="text" placeholder="enter drink (optional)" name="drink"><br>
+        <input id="drink-quantity" type="number" placeholder="enter quantity (optional)" name="drink_quantity">
         <br>
 
-        <button id="add-btn">Add</button>
+        <button type="button" id="add-btn">Add</button>
 
-        <ul>
-            <li></li>
-        </ul>
+        <ul id="unordered-list"></ul>
 
         <br>
-        <button type="submit" id="submit-order">submit Order</button>
+        <button id="submit-order">submit Order</button>
     </form>
 
-    
-    <script src="../static/enterorder.js"></script>
+    <script src="{% static 'enterorder.js' %}"></script>
 </body>
 </html>

@@ -12,5 +12,10 @@
         <p>Item: {{ item.food }} ({{ item.num_food }}) - {{ item.drink }} ({{ item.num_drink }})</p>
     {% endfor %}
     <ul id="dash-list"></ul>
+
+    <form method="POST" action="{% url 'clear_dash' %}">
+        {% csrf_token %}
+        <button type="submit">Clear orders</button>
+    </form>
 </body>
 </html>

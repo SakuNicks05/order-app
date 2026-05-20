@@ -62,6 +62,7 @@ document.getElementById("submit-order").addEventListener("click", () => {
     console.log("CLICKED SUBMIT BUTTON~");
     fetch("/submit/", {
         method: "POST",
+        credentials: "same-origin",
         headers: {
             "Content-Type": "application/json",
             "X-CSRFToken": csrftoken

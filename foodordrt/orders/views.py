@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Order
 
 # Create your views here.
-@login_required
+# @login_required
 def submit_list(request):
     if request.method != "POST":
         return JsonResponse({"error": "POST required"}, status=400)
@@ -36,6 +36,11 @@ def display_orders(request):
 
 def enter_food(request):
     return render(request, "enter-order.html")
+
+def clear_dash(request):
+    if request.method == "POST": # if user clicks button
+        Order.objects.all().delete()
+    return redirect("dashboard")
 
 def sign_up(request):
     if request.method == "POST":
